@@ -1,12 +1,14 @@
 <template>
   <div class="card">
-
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Card'
+  name: 'Card',
+  methods: {
+  }
 }
 </script>
 
