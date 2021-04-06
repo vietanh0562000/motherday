@@ -29,8 +29,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 90vh;
   display: grid;
   grid-template-rows: 10% 80% 10%;
+}
+* {
+  overflow: hidden;
+  box-sizing: border-box;
 }
 </style>

@@ -1,6 +1,16 @@
 <template>
-  <div>
-    theme la {{ themeId }}
+  <div class="edit-screen">
+    <div v-if="step === 1" class="btnControl">
+      <span @click="toSelectTheme" class="arrow left"></span>
+      <div class="action">Add Sticker</div>
+      <span @click="nextStep" class="arrow right"></span>
+    </div>
+    <div v-else class="btnControl">
+      <span @click="prevStep" class="arrow left"></span>
+      <div class="action">Add Text</div>
+      <div @click="exportPhoto" class="btnExport">Export</div>
+    </div>
+
     <div id="photo" class="img-cntnr" :style="styleProps">
       <component
         v-for="item in listTextInput"
@@ -9,40 +19,46 @@
       ></component>
     </div>
     <!-- sticker -->
-    <div v-if="step === 1" style="margin-top: 100px">
+    <div v-if="step === 1" class="sticker">
       <a href="javascript:void(0)" @click="addSticker(1)">
         <img
-          src="../assets/sticker1.jpg"
+          src="../assets/sticker2.jpg"
           alt="Avatar"
-          width="50px"
-          height="50px"
         />
       </a>
       <a href="javascript:void(0)" @click="addSticker(2)">
         <img
           src="../assets/sticker2.jpg"
           alt="Avatar"
-          width="50px"
-          height="50px"
         />
       </a>
       <a href="javascript:void(0)" @click="addSticker(3)">
         <img
           src="../assets/sticker3.jpg"
           alt="Avatar"
-          width="50px"
-          height="50px"
+        />
+      </a>
+      <a href="javascript:void(0)" @click="addSticker(2)">
+        <img
+          src="../assets/sticker2.jpg"
+          alt="Avatar"
+        />
+      </a>
+      <a href="javascript:void(0)" @click="addSticker(2)">
+        <img
+          src="../assets/sticker2.jpg"
+          alt="Avatar"
         />
       </a>
       <br />
-      <button @click="nextStep">To Step 3</button>
-      <button @click="toSelectTheme">Back to Step 1</button>
+      
     </div>
 
     <div v-else>
-      <button @click="prevStep">Back to step 2</button>
-      <button @click="addText">Add text</button>
-      <button @click="exportPhoto">export to png</button>
+      <form action="javascript:void(0);" class="formText">
+      <input placeholder="Add your text" required/>
+      <button type="submit" @click="addText" class="btnAdd">Add</button>
+      </form>
     </div>
   </div>
 </template>
@@ -61,6 +77,9 @@ export default {
     this.styleProps = {
       backgroundImage: `url(${theme})`,
       backgroundSize: "contain",
+      width: "80%",
+      height: "70%",
+      margin: "auto"
     };
   },
   data: () => ({
@@ -87,19 +106,21 @@ export default {
 
       function mousedownDragImg(e) {
         e.preventDefault();
-        dragImgMouseStart.x = e.clientX;
-        dragImgMouseStart.y = e.clientY;
+        dragImgMouseStart.x = e.touches[0].clientX;
+        dragImgMouseStart.y = e.touches[0].clientY;
         currentPos.x += lastDiff.x;
         currentPos.y += lastDiff.y;
         lastDiff = { x: 0, y: 0 };
-        window.addEventListener("mousemove", mousemoveDragImg);
-        window.addEventListener("mouseup", mouseupDragImg);
+        window.addEventListener("touchmove", mousemoveDragImg);
+        window.addEventListener("touchend", mouseupDragImg);
       }
 
       function mousemoveDragImg(e) {
-        e.preventDefault();
-        lastDiff.x = e.clientX - dragImgMouseStart.x;
-        lastDiff.y = e.clientY - dragImgMouseStart.y;
+        // e.preventDefault();
+        // eslint-disable-next-line
+        // debugger
+        lastDiff.x = e.touches[0].clientX - dragImgMouseStart.x;
+        lastDiff.y = e.touches[0].clientY - dragImgMouseStart.y;
         requestAnimationFrame(function () {
           image.style.transform =
             "translate(" +
@@ -110,13 +131,13 @@ export default {
         });
       }
 
-      function mouseupDragImg(e) {
+      function mouseupDragImg(e) {  
         e.preventDefault();
-        window.removeEventListener("mousemove", mousemoveDragImg);
-        window.removeEventListener("mouseup", mouseupDragImg);
+        window.removeEventListener("touchmove", mousemoveDragImg);
+        window.removeEventListener("touchend", mouseupDragImg);
       }
 
-      image.addEventListener("mousedown", mousedownDragImg);
+      image.addEventListener("touchstart", mousedownDragImg);
     },
     exportPhoto() {
       let div = document.getElementById("photo");
@@ -154,12 +175,14 @@ export default {
 </script>
 
 <style scoped>
+.edit-screen{
+  width: 100%;
+  height: 100%;
+}
 a img {
   border-radius: 50%;
 }
 #photo {
-  width: 300px;
-  height: 300px;
   position: relative;
   overflow: hidden;
 }
@@ -171,5 +194,80 @@ a img {
   bottom: 0;
   margin: auto;
   cursor: -webkit-grab;
+} 
+.sticker{
+  margin-top: 5%;
 }
+.sticker img{
+  margin: 2%;
+  width: 15%;
+  height: auto;
+}
+.btnControl{
+  display: flex;
+  justify-content: space-between;
+}
+.btnControl .action{
+  font-size: 1.5em;
+  align-self: center;
+}
+.arrow {
+  display: block;
+  background-color: black;
+  width: 3vmin;
+  height: 3vmin;
+  margin: 5% 5% 2% 5%;
+  background: transparent;
+  border-top: 1vmin solid rgb(231, 129, 129);
+  border-right: 1vmin solid rgb(231, 129, 129);
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+}
+.arrow.left {
+  left: 0;
+  transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+.arrow.right {
+  right: 0;
+  transform: translate3d(0, -50%, 0) rotate(45deg);
+}
+.btnExport {
+  color: rgb(245, 174, 174);
+  font-size: 1.5em;
+  align-self: center;
+  margin-right: 0.5em;
+}
+
+.btnAdd{
+  background: rgb(245, 174, 174);
+  height: 7%;
+  width: 50%;
+  border: none;
+  border-radius: 10px;
+  color: rgb(255, 249, 249);
+  font-size: 1.5em;
+  transition: 1s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5% auto 0px auto;
+}
+.formText{
+  margin: 5% auto;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+.formText input{
+  width: 50%;
+  height: 20px;
+  align-self: center;
+}
+.formText button{
+  width: 20%;
+  font-size: 1.3em;
+  align-self: center;
+}
+
 </style>
