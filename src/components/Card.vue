@@ -1,19 +1,23 @@
 <template>
   <div class="card">
-
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Card'
+  name: 'Card',
+  methods: {
+  }
 }
 </script>
 
 <style scoped>
 .card{
-  margin: 20px auto auto;
-  width: 325px;
-  background-color: antiquewhite;
+  padding-top: 20px;
+  margin: 0px auto auto;
+  width: 100%;
+  height: 100%;
+  /* background-color: antiquewhite; */
 }
 </style>
