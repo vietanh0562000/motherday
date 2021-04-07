@@ -3,36 +3,31 @@
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
-      <a href="javascript:void(0)" @click="addSticker(1)">
+      <a href="javascript:void(0)" @click="addSticker('01')">
         <img
-            src="../assets/sticker2.jpg"
+            src="../../public/assets/e-stickers01.png"
             alt="Avatar"
         />
       </a>
-      <a href="javascript:void(0)" @click="addSticker(2)">
+      <a href="javascript:void(0)" @click="addSticker('02')">
         <img
-            src="../assets/sticker2.jpg"
+            src="../../public/assets/e-stickers02.png"
             alt="Avatar"
         />
       </a>
-      <a href="javascript:void(0)" @click="addSticker(3)">
+      <a href="javascript:void(0)" @click="addSticker('04')">
         <img
-            src="../assets/sticker3.jpg"
+            src="../../public/assets/e-stickers04.png"
             alt="Avatar"
         />
       </a>
-      <a href="javascript:void(0)" @click="addSticker(2)">
+      <a href="javascript:void(0)" @click="addSticker('06')">
         <img
-            src="../assets/sticker2.jpg"
+            src="../../public/assets/e-stickers06.png"
             alt="Avatar"
         />
       </a>
-      <a href="javascript:void(0)" @click="addSticker(2)">
-        <img
-            src="../assets/sticker2.jpg"
-            alt="Avatar"
-        />
-      </a>
+
       <br />
 
     </div>
@@ -82,7 +77,8 @@ export default {
   },
   mounted() {
     this.themeId = this.$route.params?.themeId ?? 1;
-    const theme = require(`../assets/theme${this.themeId}.jpg`);
+    const theme = require(`../../public/assets/e-template${this.themeId}.png`);
+    console.log(theme);
     this.styleProps = {
       backgroundImage: `url(${theme})`,
       backgroundSize: "100% 100%",
@@ -136,7 +132,7 @@ export default {
       const item = {
         id: this.lastStickerId++,
         type: "sticker",
-        img: require(`../assets/sticker${stickerId}.jpg`)
+        img: require(`../../public/assets/e-stickers${stickerId}.png`)
       };
       this.listSticker.push(item);
     },
