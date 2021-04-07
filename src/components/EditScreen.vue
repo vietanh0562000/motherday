@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import domtoimage from "dom-to-image";
+import * as htmlImage from 'html-to-image';
 
 export default {
   name: "edit-screen",
@@ -138,7 +138,10 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo");
-      return await domtoimage.toPng(div).catch((error) => console.error("oops, something went wrong!", error));
+      return htmlImage.toPng(div)
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+      });
     },
     async nextScreen() {
       const completeCard = await this.exportPhoto();
