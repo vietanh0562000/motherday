@@ -9,15 +9,15 @@
 <script>
 export default {
     name: 'thanks-screen',
-    props:{
-      completeCard: Object
-    },
     methods: {
         startMake () {
             this.$router.push('/')
         },
         exportPhoto() {
-          console.log(this.completeCard);
+          var download = document.createElement("a");
+          download.href = this.$route.params.completeCard;
+          download.download = "happy_mother.png";
+          download.click();
         }
     }
 }

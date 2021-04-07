@@ -41,7 +41,12 @@
         v-for="item in listTextInput"
         :is="item.type"
         v-bind:key="item.id"
+        @changeInput = "changeInput"
+        :inputVal="item.inputValue"
+        :font="fontStyle"
+        :idText="item.id"
       ></component>
+
       <component
         v-for="item in listSticker"
         :is="item.type"
@@ -55,7 +60,8 @@
     <div>
       <div class="btn">
         <a id='changeFont' @click="changeFont" class="smallBtn" :style="fontStyle">Aa</a>
-        <a @click="addText" class="mediumBtn">Click to Enter Text</a>
+        <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
+        <a v-else @click="addText" class="mediumBtn">Click to Enter Text</a>
       </div>
       <button @click="nextScreen" class="btn">CLICK COMPLETE</button>
     </div>
@@ -70,6 +76,9 @@ export default {
   components: {
     'text-input': () => import('./TextInput'),
     'sticker': () => import('./Sticker'),
+  },
+  beforeUpdate() {
+
   },
   mounted() {
     this.themeId = this.$route.params?.themeId ?? 1;
@@ -111,12 +120,17 @@ export default {
     lastTextInputId: 0,
     fontStyle: {
       fontFamily: 'Monospace',
-      fontSize: '1.5em'
+      fontSize: '1.5rem'
     },
     fontId: 0,
+    isEditing: false,
+    inputValue: [],
+    choosenInput: 0,
+    selectedId: null,
     listSticker: [],
     lastStickerId: 0
   }),
+
   methods: {
     addSticker(stickerId) {
       const item = {
@@ -132,11 +146,7 @@ export default {
     },
     async nextScreen() {
       const completeCard = await this.exportPhoto();
-      var download = document.createElement("a");
-      download.href = completeCard;
-      download.download = "happy_mother.png";
-      download.click();
-      this.$router.push({path: "tks-screen", props: {completeCard: completeCard}});
+      await this.$router.push({name: "tks-screen", params: {completeCard: completeCard}});
     },
     addText() {
       const item = {
@@ -160,10 +170,17 @@ export default {
       ]
       this.fontStyle = {
         fontFamily : fonts[(this.fontId+1)%fonts.length],
-        fontSize: '1.5em'
+        fontSize: '1.5rem'
       }
       this.fontId++;
 
+    },
+    changeInput(value){
+      // eslint-disable-next-line
+      this.selectedId = value.id
+      console.log(value);
+      this.inputValue=value;
+      this.isEditing=true;
     }
   },
 };
@@ -212,6 +229,7 @@ a img {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 2%;
 }
 .mediumBtn{
   background: black;
@@ -254,5 +272,11 @@ a img {
   width: 20%;
   font-size: 1.3em;
   align-self: center;
+}
+.inputValue{
+  color: white;
+  background: black;
+  outline: none;
+  border: none;
 }
 </style>

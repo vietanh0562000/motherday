@@ -1,29 +1,23 @@
 <template>
-  <div ref="draggableContainer" class="draggable-container">
-    <div class="text-input draggable-header" @touchstart="dragMouseDown">
-      <div id="textValue" class="textValue" v-if="!isEditting" @dblclick="isEditting = true">{{ inputVal }}</div>
-      <div v-else>
-        <a @click="changeFont(1)">Change</a>
-        <input
-            v-model="inputVal"
-            @keyup.enter="isEditting = false"
-            @blur="isEditting = false"
-            type="text"
-        />
+    <div ref="draggableContainer" class="draggable-container"  @dblclick="editText">
+      <div class="text-input draggable-header" @touchstart="dragMouseDown">
+        <drr :x="100" :y="100" :w="100" :h="100">
+          <div id="textValue" class="textValue" :style="font">{{ inputVal }}</div>
+        </drr>
       </div>
-
     </div>
-  </div>
 </template>
 
 <script>
 export default {
   name: "text-input",
-  props: ["text"],
+  props: [
+      "text",
+      "inputVal",
+      "font",
+      "idText",
+  ],
   data: () => ({
-    inputVal: "仿宋體 仿宋体",
-    font: 'Lobster',
-    isEditting: false,
     positions: {
       clientX: undefined,
       clientY: undefined,
@@ -81,26 +75,30 @@ export default {
         fontSize: "50px",
         fontFamily: this.font
       }
+    },
+    editText(){
+      console.log(1);
+      this.$emit('changeInput', {'val': this.inputVal, 'id': this.idText});
     }
   },
 };
 </script>
 
 <style scoped>
-.draggable-container {
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  z-index: 9;
-}
-.draggable-header {
-  z-index: 10;
-}
-input:focus{
-  outline: none;
-}
-.textValue{
-  font-size: 50px;
-  font-family: Magneto;
-}
+/*.draggable-container {*/
+/*  top: 50%;*/
+/*  left: 50%;*/
+/*  position: absolute;*/
+/*  z-index: 9;*/
+/*}*/
+/*.draggable-header {*/
+/*  z-index: 10;*/
+/*}*/
+/*input:focus{*/
+/*  outline: none;*/
+/*}*/
+/*.textValue{*/
+/*  font-size: 50px;*/
+/*  font-family: Magneto;*/
+/*}*/
 </style>
