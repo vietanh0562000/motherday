@@ -10,7 +10,7 @@
   "dependencies": {
     "@minogin/vue-drag-resize-rotate": "^1.0.3",
     "core-js": "^3.6.5",
-    "dom-to-image": "^2.6.0",
+    "html-to-image": "^1.6.0",
     "sass-loader": "^11.0.1",
     "vue": "^2.6.11",
     "vue-moveable": "^1.8.10",
