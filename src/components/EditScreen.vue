@@ -42,6 +42,13 @@
         :is="item.type"
         v-bind:key="item.id"
       ></component>
+      <component
+        v-for="item in listSticker"
+        :is="item.type"
+        v-bind:key="item.id"
+      >
+        <img :src="item.img" width="100" height="100" class="image"/>
+      </component>
     </div>
 
 
@@ -61,7 +68,8 @@ import domtoimage from "dom-to-image";
 export default {
   name: "edit-screen",
   components: {
-    'text-input': () => import('./TextInput')
+    'text-input': () => import('./TextInput'),
+    'sticker': () => import('./Sticker'),
   },
   mounted() {
     this.themeId = this.$route.params?.themeId ?? 1;
@@ -72,10 +80,30 @@ export default {
       width: "70%",
       height: "50%",
       margin: "auto",
-      borderRadius: "5%"
+      borderRadius: "5%",
+      position: "relative"
     };
   },
   data: () => ({
+    moveable: {
+      draggable: true,
+      throttleDrag: 1,
+      resizable: false,
+      throttleResize: 1,
+      keepRatio: false,
+      scalable: true,
+      throttleScale: 0.01,
+      rotatable: true,
+      throttleRotate: 0.2,
+      pinchable: true,
+      origin: false,
+    },
+    states: {
+      scalable: "Scalable",
+      resizable: "Resizable",
+      warpable: "Warpable",
+    },
+    currentState: "scalable",
     themeId: 1,
     step: 1,
     styleProps: {},
@@ -86,56 +114,17 @@ export default {
       fontSize: '1.5em'
     },
     fontId: 0,
+    listSticker: [],
+    lastStickerId: 0
   }),
   methods: {
     addSticker(stickerId) {
-      const img = new Image();
-      img.src = require(`../assets/sticker${stickerId}.jpg`);
-      img.width = "100";
-      img.height = "100";
-      img.style.position = "absolute";
-      document.getElementById("photo").appendChild(img);
-
-      let image = img,
-        dragImgMouseStart = {},
-        lastDiff = { x: 0, y: 0 },
-        initialPos = image.getBoundingClientRect(),
-        currentPos = { x: -initialPos.width / 2, y: 0 };
-
-      function mousedownDragImg(e) {
-        e.preventDefault();
-        dragImgMouseStart.x = e.touches[0].clientX;
-        dragImgMouseStart.y = e.touches[0].clientY;
-        currentPos.x += lastDiff.x;
-        currentPos.y += lastDiff.y;
-        lastDiff = { x: 0, y: 0 };
-        window.addEventListener("touchmove", mousemoveDragImg);
-        window.addEventListener("touchend", mouseupDragImg);
-      }
-
-      function mousemoveDragImg(e) {
-        // e.preventDefault();
-        // eslint-disable-next-line
-        // debugger
-        lastDiff.x = e.touches[0].clientX - dragImgMouseStart.x;
-        lastDiff.y = e.touches[0].clientY - dragImgMouseStart.y;
-        requestAnimationFrame(function () {
-          image.style.transform =
-            "translate(" +
-            (currentPos.x + lastDiff.x) +
-            "px," +
-            (currentPos.y + lastDiff.y) +
-            "px)";
-        });
-      }
-
-      function mouseupDragImg(e) {  
-        e.preventDefault();
-        window.removeEventListener("touchmove", mousemoveDragImg);
-        window.removeEventListener("touchend", mouseupDragImg);
-      }
-
-      image.addEventListener("touchstart", mousedownDragImg);
+      const item = {
+        id: this.lastStickerId++,
+        type: "sticker",
+        img: require(`../assets/sticker${stickerId}.jpg`)
+      };
+      this.listSticker.push(item);
     },
     async exportPhoto() {
       let div = document.getElementById("photo");
@@ -143,6 +132,10 @@ export default {
     },
     async nextScreen() {
       const completeCard = await this.exportPhoto();
+      var download = document.createElement("a");
+      download.href = completeCard;
+      download.download = "happy_mother.png";
+      download.click();
       this.$router.push({path: "tks-screen", props: {completeCard: completeCard}});
     },
     addText() {
@@ -262,5 +255,4 @@ a img {
   font-size: 1.3em;
   align-self: center;
 }
-
 </style>
