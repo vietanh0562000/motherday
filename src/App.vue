@@ -32,17 +32,12 @@ export default {
   height: 90vh;
   display: grid;
   grid-template-rows: 15% 90%;
+  overflow: hidden;
 }
 * {
-  /* overflow: hidden; */
   box-sizing: border-box;
 }
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+
 
 .image {
   width: 100%;

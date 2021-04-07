@@ -4,28 +4,20 @@
     <!-- sticker -->
     <div class="sticker">
       <a href="javascript:void(0)" @click="addSticker('01')">
-        <img
-            src="../../public/assets/e-stickers01.png"
-            alt="Avatar"
-        />
+        <div class="circleImg" style="background-image: url(assets/e-stickers01.png);">
+        </div>
       </a>
       <a href="javascript:void(0)" @click="addSticker('02')">
-        <img
-            src="../../public/assets/e-stickers02.png"
-            alt="Avatar"
-        />
+        <div class="circleImg" style="background-image: url(assets/e-stickers02.png);">
+        </div>
       </a>
       <a href="javascript:void(0)" @click="addSticker('04')">
-        <img
-            src="../../public/assets/e-stickers04.png"
-            alt="Avatar"
-        />
+        <div class="circleImg" style="background-image: url(assets/e-stickers04.png);">
+        </div>
       </a>
       <a href="javascript:void(0)" @click="addSticker('06')">
-        <img
-            src="../../public/assets/e-stickers06.png"
-            alt="Avatar"
-        />
+        <div class="circleImg" style="background-image: url(assets/e-stickers06.png);">
+        </div>
       </a>
 
       <br />
@@ -193,8 +185,15 @@ export default {
 .action{
   font-size: 1em;
 }
-a img {
+
+.circleImg{
+  width: 50%;
+  padding-top: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
   border-radius: 50%;
+  background-size: cover;
+  border: 1px silver solid;
 }
 #photo {
   position: relative;
@@ -210,12 +209,15 @@ a img {
   cursor: grab;
 } 
 .sticker{
+  display: flex;
+  height: 20%;
+  width: 100%;
   margin-top: 5%;
+  padding: 5%;
 }
-.sticker img{
-  margin: 2%;
-  width: 10%;
-  height: auto;
+.sticker a{
+  width: 25%;
+  height: 25%;
 }
 .smallBtn{
   background: black;
