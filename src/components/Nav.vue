@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    Venus cooperation
+    <img src='../assets/logo.jpg' alt="logo"/>
   </div>
 </template>
 <script>
@@ -10,10 +10,13 @@ export default {
 </script>
 <style scoped>
   .navbar{
-    text-align: center;
-    border-bottom: #2c3e50 1px solid;
-    font-size: 3em;
+    margin-top: 2%;
     width: 100%;
     height: 100%;
+  }
+  .navbar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>

@@ -12,7 +12,7 @@ export const router = new VueRouter({
     routes: [
         { path: '/select-theme', name: 'select-theme', component: SelectTheme },
         { path: '/edit-screen', name: 'edit-screen', component: EditScreen },
-        { path: '/tks-screen', name: 'edit-screen', component: ThanksScreen },
+        { path: '/tks-screen', name: 'tks-screen', component: ThanksScreen },
         { path: '/', component: FirstScreen },
     ]
 })

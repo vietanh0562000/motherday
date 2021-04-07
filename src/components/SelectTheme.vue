@@ -1,6 +1,6 @@
 <template>
   <div class="second-screen">
-    <h1>Select Theme</h1>
+    <h1>Step 1: Choose your template</h1>
     <br />
     <a href="javascript:void(0)" @click="toEdit(1)">
       <img
@@ -40,9 +40,13 @@ export default {
 </script>
 
 <style scoped>
-.second-screen h1 { 
+.second-screen h1 {
+  font-size: 1em;
   margin-top: 5%;
   margin-bottom: 5%;
+}
+.second-screen a{
+  display: block;
 }
 .second-screen img {
   width: 25%;

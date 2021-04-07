@@ -1,14 +1,17 @@
 <template>
   <div ref="draggableContainer" class="draggable-container">
     <div class="text-input draggable-header" @touchstart="dragMouseDown">
-      <div style="font-size:50px" v-if="!isEditting" @dblclick="isEditting = true">{{ inputVal }}</div>
-      <input
-        v-else
-        v-model="inputVal"
-        @keyup.enter="isEditting = false"
-        @blur="isEditting = false"
-        type="text"
-      />
+      <div id="textValue" class="textValue" v-if="!isEditting" @dblclick="isEditting = true">{{ inputVal }}</div>
+      <div v-else>
+        <a @click="changeFont(1)">Change</a>
+        <input
+            v-model="inputVal"
+            @keyup.enter="isEditting = false"
+            @blur="isEditting = false"
+            type="text"
+        />
+      </div>
+
     </div>
   </div>
 </template>
@@ -18,7 +21,8 @@ export default {
   name: "text-input",
   props: ["text"],
   data: () => ({
-    inputVal: "hello",
+    inputVal: "仿宋體 仿宋体",
+    font: 'Lobster',
     isEditting: false,
     positions: {
       clientX: undefined,
@@ -66,6 +70,18 @@ export default {
       window.removeEventListener("touchmove", this.elementDrag);
       window.removeEventListener("touchend", this.closeDragElement);
     },
+    changeFont(id){
+      const fonts =[
+        'Lobster',
+        'Crimson Pro',
+        'ZCOOL XiaoWei'
+      ];
+      this.font = fonts[id];
+      this.getElementById("textValue").styleProps = {
+        fontSize: "50px",
+        fontFamily: this.font
+      }
+    }
   },
 };
 </script>
@@ -79,5 +95,12 @@ export default {
 }
 .draggable-header {
   z-index: 10;
+}
+input:focus{
+  outline: none;
+}
+.textValue{
+  font-size: 50px;
+  font-family: Magneto;
 }
 </style>
