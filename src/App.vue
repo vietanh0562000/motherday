@@ -23,6 +23,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
 #app {
   font-family: 'Dancing Script', cursive, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

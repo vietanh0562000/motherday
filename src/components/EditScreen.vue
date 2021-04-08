@@ -44,14 +44,19 @@
     </div>
 
 
-    <div>
       <div class="btn">
-        <a id='changeFont' @click="changeFont" class="smallBtn" :style="fontStyle">Aa</a>
-        <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
-        <a v-else @click="addText" class="mediumBtn">Click to Enter Text</a>
+        <div class="smallBtn" >
+          <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
+        </div>
+        <div class="mediumBtn">
+          <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
+          <a v-else @click="addText" >Click to Enter Text</a>
+        </div>
       </div>
-      <button @click="nextScreen" class="btn">CLICK COMPLETE</button>
-    </div>
+      <div class="btn">
+        <a @click="nextScreen">CLICK COMPLETE</a>
+      </div>
+
   </div>
 </template>
 
@@ -107,10 +112,11 @@ export default {
     listTextInput: [],
     lastTextInputId: 0,
     fontStyle: {
-      fontFamily: 'Monospace',
+      fontFamily: 'Dancing Script',
       fontSize: '1.5rem'
     },
     fontId: 0,
+    fontSample: 'Aa',
     isEditing: false,
     inputValue: [],
     choosenInput: 0,
@@ -143,7 +149,7 @@ export default {
       const item = {
         id: this.lastTextInputId++,
         type: "text-input",
-        inputValue: 'Alo'
+        inputValue: 'Your text'
       };
       this.listTextInput.push(item);
     },
@@ -155,15 +161,21 @@ export default {
     },
     changeFont(){
       const fonts = [
-        'Monospace',
+        'Josefin Sans',
         'Fantasy',
         'Dancing Script',
+        'ZCOOL XiaoWei',
       ]
       this.fontStyle = {
         fontFamily : fonts[(this.fontId+1)%fonts.length],
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
       }
-      this.fontId++;
+      this.fontId = (this.fontId + 1) % fonts.length;
+      if (this.fontId == fonts.length-1){
+        this.fontSample='字';
+      }else{
+        this.fontSample='Aa';
+      }
 
     },
     changeInput(value){
@@ -223,10 +235,10 @@ export default {
   background: black;
   border-right: 1px solid white;
   width: 20%;
+  height: 100%;
   text-align: center;
   color: rgb(255, 249, 249);
-  font-size: 1.2em;
-  font-family: inherit;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,9 +248,9 @@ export default {
   background: black;
   border: none;
   width: 80%;
+  height: 100%;
   border-radius: 10px;
   color: rgb(255, 249, 249);
-  font-size: 1.2em;
   font-family: inherit;
   display: flex;
   align-items: center;
@@ -279,5 +291,9 @@ export default {
   background: black;
   outline: none;
   border: none;
+  border-radius: 10px;
+  width: 100%;
+  height: 80%;
+  padding-left: 10px;
 }
 </style>
