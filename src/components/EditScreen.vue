@@ -37,7 +37,7 @@
       <component
         v-for="item in listSticker"
         :is="item.type"
-        v-bind:key="item.id"
+        v-bind:key="'sticker' + item.id"
       >
         <img :src="item.img" width="100" height="100" class="image"/>
       </component>

@@ -1,5 +1,5 @@
 <template>
-    <div ref="draggableContainer" class="draggable-container"  @dblclick="editText">
+    <div ref="draggableContainer" class="draggable-container"  v-touch="editText">
       <div class="text-input draggable-header" @touchstart="dragMouseDown">
         <drr :x="100" :y="100" :w="100" :h="100">
           <div id="textValue" class="textValue" :style="font">{{ inputVal }}</div>
@@ -27,6 +27,8 @@ export default {
   }),
   methods: {
     dragMouseDown: function (event) {
+      // eslint-disable-next-line
+      debugger
       if (this.isEditting) return;
       //event.preventDefault();
       // eslint-disable-next-line
