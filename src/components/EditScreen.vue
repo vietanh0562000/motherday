@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="btn">
-        <a @click="nextScreen">CLICK COMPLETE</a>
+        <a @click="nextScreen">CLICK TO COMPLETE</a>
       </div>
 
   </div>
@@ -267,7 +267,7 @@ export default {
 .btn{
   background: black;
   height: 6%;
-  width: 65%;
+  width: 75%;
   border: none;
   border-radius: 10px;
   color: rgb(255, 249, 249);

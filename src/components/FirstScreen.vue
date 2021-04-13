@@ -1,7 +1,7 @@
 <template>
   <div class="first-screen">
     <img
-      src="https://ruthamcauquan2.info/wp-content/uploads/2020/07/anh-gai-xinh-hap-dan-nhieu-nam-gioi-3.jpg"
+      src="assets/welcome.png"
     />
     <div id="btn" @click="nextScreen">
       <span class="noselect">Customize</span>
@@ -27,7 +27,7 @@ export default {
   height: 100%;
 }
 .first-screen img {
-  object-fit: cover;
+  object-fit: contain;
   margin-top: 5%;
   border-radius: 5%;
   width: calc(68%);
