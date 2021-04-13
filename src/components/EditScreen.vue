@@ -1,5 +1,6 @@
 <template>
-  <div class="edit-screen">
+  <LoadingBar v-if="isLoading" />
+  <div v-else class="edit-screen">
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
@@ -60,18 +61,20 @@
       <div class="btn">
         <a @click="nextScreen">CLICK TO COMPLETE</a>
       </div>
-
   </div>
 </template>
 
 <script>
 import * as htmlImage from 'html-to-image';
+import LoadingBar from "./LoadingBar";
 
 export default {
   name: "edit-screen",
   components: {
     'text-input': () => import('./TextInput'),
     'sticker': () => import('./Sticker'),
+    Loading,
+    LoadingBar
   },
   beforeUpdate() {
 
@@ -143,15 +146,15 @@ export default {
     async exportPhoto() {
       let div = document.getElementById("photo");
       console.log(div.style.width);
-      this.isLoading=true;
       return htmlImage.toPng(div, () =>{
-        this.isLoading=false;
       }).catch(function (error) {
         console.error('oops, something went wrong!', error);
       });
     },
     async nextScreen() {
+      this.isLoading = true;
       const completeCard = await this.exportPhoto();
+      this.isLoading = false;
       await this.$router.push({name: "tks-screen", params: {completeCard: completeCard}});
     },
     addText() {
