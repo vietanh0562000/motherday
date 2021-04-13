@@ -19,6 +19,10 @@
         <div class="circleImg" style="background-image: url(assets/e-stickers06.png);">
         </div>
       </a>
+      <a href="javascript:void(0)" @click="addSticker('07')">
+        <div class="circleImg" style="background-image: url(assets/e-stickers07.png);">
+        </div>
+      </a>
 
       <br />
 
@@ -122,7 +126,9 @@ export default {
     choosenInput: 0,
     selectedId: null,
     listSticker: [],
-    lastStickerId: 0
+    lastStickerId: 0,
+    isLoading: false,
+    fullPage: true,
   }),
 
   methods: {
@@ -136,8 +142,11 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo");
-      return htmlImage.toPng(div)
-      .catch(function (error) {
+      console.log(div.style.width);
+      this.isLoading=true;
+      return htmlImage.toPng(div, () =>{
+        this.isLoading=false;
+      }).catch(function (error) {
         console.error('oops, something went wrong!', error);
       });
     },
@@ -205,7 +214,6 @@ export default {
   background-position: center;
   border-radius: 50%;
   background-size: cover;
-  border: 1px silver solid;
 }
 #photo {
   position: relative;
