@@ -1,68 +1,73 @@
 <template>
-  <LoadingBar v-if="isLoading" />
-  <div v-else class="edit-screen">
+  <div class="edit-screen">
+    <loading :active.sync="isLoading" 
+       :can-cancel="true" 
+       :is-full-page="fullPage"></loading>
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
-        <div class="circleImg" style="background-image: url(assets/e-stickers01.png);" @click="addSticker('01')">
-        </div>
-        <div class="circleImg" style="background-image: url(assets/e-stickers02.png);" @click="addSticker('02')">
-        </div>
-        <div class="circleImg" style="background-image: url(assets/e-stickers04.png);" @click="addSticker('04')">
-        </div>
-        <div class="circleImg" style="background-image: url(assets/e-stickers06.png);" @click="addSticker('06')">
-        </div>
-        <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
-        </div>
+      <div class="circleImg" style="background-image: url(assets/e-stickers01.png);" @click="addSticker('01')">
+      </div>
+      <div class="circleImg" style="background-image: url(assets/e-stickers02.png);" @click="addSticker('02')">
+      </div>
+      <div class="circleImg" style="background-image: url(assets/e-stickers04.png);" @click="addSticker('04')">
+      </div>
+      <div class="circleImg" style="background-image: url(assets/e-stickers06.png);" @click="addSticker('06')">
+      </div>
+      <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
+      </div>
       <br />
 
     </div>
     <div id="photo" class="img-cntnr" :style="styleProps">
       <component
-        v-for="item in listTextInput"
-        :is="item.type"
-        v-bind:key="item.id"
-        @changeInput = "changeInput"
-        :inputVal="item.inputValue"
-        :font="fontStyle"
-        :idText="item.id"
-      ></component>
+          v-for="item in listTextInput"
+          :is="item.type"
+          v-bind:key="item.id"
+          @changeInput = "changeInput"
+          :inputVal="item.inputValue"
+          :font="fontStyle"
+          :idText="item.id"
+          ></component>
 
       <component
-        v-for="item in listSticker"
-        :is="item.type"
-        v-bind:key="'sticker' + item.id"
-      >
-        <img :src="item.img" width="100" height="100" class="image"/>
+          v-for="item in listSticker"
+          :is="item.type"
+          v-bind:key="'sticker' + item.id"
+          >
+          <img :src="item.img" width="100" height="100" class="image"/>
       </component>
     </div>
 
 
-      <div class="btn">
-        <div class="smallBtn" >
-          <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
-        </div>
-        <div class="mediumBtn">
-          <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
-          <a v-else @click="addText" >Click to Enter Text</a>
-        </div>
+    <div class="btn">
+      <div class="smallBtn" >
+        <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
       </div>
-      <div class="btn">
-        <a @click="nextScreen">CLICK TO COMPLETE</a>
+      <div class="mediumBtn">
+        <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
+        <a v-else @click="addText" >Click to Enter Text</a>
       </div>
+    </div>
+    <div class="btn">
+      <a @click="nextScreen">CLICK TO COMPLETE</a>
+    </div>
   </div>
 </template>
 
 <script>
 import * as htmlImage from 'html-to-image';
-import LoadingBar from "./LoadingBar";
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: "edit-screen",
   components: {
     'text-input': () => import('./TextInput'),
     'sticker': () => import('./Sticker'),
-    LoadingBar
+    Loading
   },
   beforeUpdate() {
 
@@ -154,10 +159,10 @@ export default {
       this.listTextInput.push(item);
     },
     prevStep () {
-        this.step -= 1
+      this.step -= 1
     },
     toSelectTheme () {
-        this.$router.push('/select-theme')
+      this.$router.push('/select-theme')
     },
     changeFont(){
       const fonts = [
