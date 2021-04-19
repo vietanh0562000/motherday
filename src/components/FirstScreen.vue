@@ -35,7 +35,7 @@ export default {
   /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
 }
 #btn {
-  background: black;
+  background: #e72573;
   height: 7%;
   width: 50%;
   border: none;

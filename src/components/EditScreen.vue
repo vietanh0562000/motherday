@@ -4,27 +4,16 @@
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
-      <a href="javascript:void(0)" @click="addSticker('01')">
-        <div class="circleImg" style="background-image: url(assets/e-stickers01.png);">
+        <div class="circleImg" style="background-image: url(assets/e-stickers01.png);" @click="addSticker('01')">
         </div>
-      </a>
-      <a href="javascript:void(0)" @click="addSticker('02')">
-        <div class="circleImg" style="background-image: url(assets/e-stickers02.png);">
+        <div class="circleImg" style="background-image: url(assets/e-stickers02.png);" @click="addSticker('02')">
         </div>
-      </a>
-      <a href="javascript:void(0)" @click="addSticker('04')">
-        <div class="circleImg" style="background-image: url(assets/e-stickers04.png);">
+        <div class="circleImg" style="background-image: url(assets/e-stickers04.png);" @click="addSticker('04')">
         </div>
-      </a>
-      <a href="javascript:void(0)" @click="addSticker('06')">
-        <div class="circleImg" style="background-image: url(assets/e-stickers06.png);">
+        <div class="circleImg" style="background-image: url(assets/e-stickers06.png);" @click="addSticker('06')">
         </div>
-      </a>
-      <a href="javascript:void(0)" @click="addSticker('07')">
-        <div class="circleImg" style="background-image: url(assets/e-stickers07.png);">
+        <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
         </div>
-      </a>
-
       <br />
 
     </div>
@@ -73,7 +62,6 @@ export default {
   components: {
     'text-input': () => import('./TextInput'),
     'sticker': () => import('./Sticker'),
-    Loading,
     LoadingBar
   },
   beforeUpdate() {
@@ -211,12 +199,11 @@ export default {
 }
 
 .circleImg{
-  width: 50%;
-  padding-top: 50%;
+  width: 20%;
+  height: 60%;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 50%;
-  background-size: cover;
+  background-size: contain;
 }
 #photo {
   position: relative;
@@ -238,12 +225,8 @@ export default {
   margin-top: 5%;
   padding: 5%;
 }
-.sticker a{
-  width: 25%;
-  height: 25%;
-}
 .smallBtn{
-  background: black;
+  background: #e72573;
   border-right: 1px solid white;
   width: 20%;
   height: 100%;
@@ -256,7 +239,7 @@ export default {
   margin-left: 2%;
 }
 .mediumBtn{
-  background: black;
+  background: #e72573;
   border: none;
   width: 80%;
   height: 100%;
@@ -268,7 +251,7 @@ export default {
   justify-content: center;
 }
 .btn{
-  background: black;
+  background: #e72573;
   height: 6%;
   width: 75%;
   border: none;
@@ -277,7 +260,7 @@ export default {
   font-size: 1.2em;
   font-family: inherit;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   margin: 2% auto 0px auto;
 }

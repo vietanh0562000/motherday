@@ -2,19 +2,16 @@
   <div class="second-screen">
     <h1>Step 1: Choose your template</h1>
     <br />
+    <div class="templates">
+      <div class="circleImg" style="background-image: url(assets/e-template07.png);" @click="toEdit('07')">
+      </div>
 
-    <a href="javascript:void(0)" @click="toEdit('07')">
-      <div class="circleImg" style="background-image: url(assets/e-template07.png);">
+      <div class="circleImg" style="background-image: url(assets/e-template16.png);" @click="toEdit('16')">
       </div>
-    </a>
-    <a href="javascript:void(0)" @click="toEdit('16')">
-      <div class="circleImg" style="background-image: url(assets/e-template16.png);">
+
+      <div class="circleImg" style="background-image: url(assets/e-template08.png);" @click="toEdit('08')">
       </div>
-    </a>
-    <a href="javascript:void(0)" @click="toEdit('08')">
-      <div class="circleImg" style="background-image: url(assets/e-template08.png);">
-      </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -35,6 +32,10 @@ export default {
 </script>
 
 <style scoped>
+.second-screen{
+  height: 100%;
+  width: 100%;
+}
 .second-screen h1 {
   font-size: 1em;
   margin-top: 5%;
@@ -44,13 +45,15 @@ export default {
   display: block;
 }
 .circleImg{
-  width: 25%;
-  padding-top: 25%;
+  width: 40%;
+  height: 25%;
   background-repeat: no-repeat;
   background-position: center;
-  margin: auto;
-  border-radius: 50%;
-  background-size: cover;
+  background-size: contain;
+  border: #a8adb3 1px solid;
+  padding: 10px;
+  margin: 2%;
+  border-radius: 10px;
 }
 .second-screen img {
   width: 25%;
@@ -61,5 +64,12 @@ export default {
 .second-screen a{
   margin: 2%;
 }
-
+.templates{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+}
 </style>
