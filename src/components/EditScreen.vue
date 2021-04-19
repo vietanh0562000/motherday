@@ -17,29 +17,31 @@
       <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
       </div>
       <br />
-
     </div>
-    <div id="photo" class="img-cntnr" :style="styleProps">
-      <component
-          v-for="item in listTextInput"
-          :is="item.type"
-          v-bind:key="item.id"
-          @changeInput = "changeInput"
-          :inputVal="item.inputValue"
-          :font="fontStyle"
-          :idText="item.id"
-          ></component>
+    <div id="photo">
+      <div id='photo-child'>
+         <div id="capture-img" class="img-cntnr" :style="styleProps">
+        <component
+            v-for="item in listTextInput"
+            :is="item.type"
+            v-bind:key="item.id"
+            @changeInput = "changeInput"
+            :inputVal="item.inputValue"
+            :font="fontStyle"
+            :idText="item.id"
+            ></component>
 
-      <component
-          v-for="item in listSticker"
-          :is="item.type"
-          v-bind:key="'sticker' + item.id"
-          >
-          <img :src="item.img" width="100" height="100" class="image"/>
-      </component>
+        <component
+            v-for="item in listSticker"
+            :is="item.type"
+            v-bind:key="'sticker' + item.id"
+            >
+            <img :src="item.img" width="100" height="100" class="image"/>
+        </component>
+      </div>
+      </div>
     </div>
-
-
+    
     <div class="btn">
       <div class="smallBtn" >
         <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
@@ -79,8 +81,8 @@ export default {
     this.styleProps = {
       backgroundImage: `url(${theme})`,
       backgroundSize: "100% 100%",
-      width: "70%",
-      height: "50%",
+      width: "100%",
+      height: "100%",
       margin: "auto",
       borderRadius: "5%",
       position: "relative"
@@ -137,12 +139,9 @@ export default {
       this.listSticker.push(item);
     },
     async exportPhoto() {
-      let div = document.getElementById("photo");
+      let div = document.getElementById("photo-child");
       console.log(div.style.width);
-      return htmlImage.toPng(div, () =>{
-      }).catch(function (error) {
-        console.error('oops, something went wrong!', error);
-      });
+      return await htmlImage.toPng(div);
     },
     async nextScreen() {
       this.isLoading = true;
@@ -211,7 +210,16 @@ export default {
   background-size: contain;
 }
 #photo {
-  position: relative;
+  overflow: hidden;
+  width: 70%;
+  height: 50%;
+  margin: auto;
+}
+#photo-child {
+  width: 100%;
+  height: 100%;
+}
+#capture-img {
   overflow: hidden;
 }
 .img-cntnr img {
