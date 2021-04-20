@@ -1,7 +1,7 @@
 <template>
   <div class="edit-screen">
-    <loading :active.sync="isLoading" 
-       :can-cancel="true" 
+    <loading :active.sync="isLoading"
+       :can-cancel="true"
        :is-full-page="fullPage"></loading>
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
@@ -17,6 +17,7 @@
       <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
       </div>
       <br />
+
     </div>
     <div id="photo">
       <div id='photo-child'>
@@ -41,18 +42,18 @@
       </div>
       </div>
     </div>
-    
+
     <div class="btn">
       <div class="smallBtn" >
         <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
       </div>
       <div class="mediumBtn">
         <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
-        <a v-else @click="addText" >Click to Enter Text</a>
+        <a v-else @click="addText" >click to enter text</a>
       </div>
     </div>
     <div class="btn">
-      <a @click="nextScreen">CLICK TO COMPLETE</a>
+      <a @click="nextScreen">click to complete</a>
     </div>
   </div>
 </template>
@@ -115,7 +116,7 @@ export default {
     lastTextInputId: 0,
     fontStyle: {
       fontFamily: 'Dancing Script',
-      fontSize: '1.5rem'
+      fontSize: '1.2rem'
     },
     fontId: 0,
     fontSample: 'Aa',
@@ -172,7 +173,7 @@ export default {
       ]
       this.fontStyle = {
         fontFamily : fonts[(this.fontId+1)%fonts.length],
-        fontSize: '1.5rem',
+        fontSize: '1.2rem',
       }
       this.fontId = (this.fontId + 1) % fonts.length;
       if (this.fontId == fonts.length-1){
@@ -257,7 +258,9 @@ export default {
   width: 80%;
   height: 100%;
   border-radius: 10px;
+  text-align: center;
   color: rgb(255, 249, 249);
+  font-size: 1.2rem;
   font-family: inherit;
   display: flex;
   align-items: center;
@@ -270,37 +273,22 @@ export default {
   border: none;
   border-radius: 10px;
   color: rgb(255, 249, 249);
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-family: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 2% auto 0px auto;
 }
-.formText{
-  margin: 5% auto;
-  width: 70%;
-  display: flex;
-  justify-content: space-around;
-}
-.formText input{
-  width: 50%;
-  height: 20px;
-  align-self: center;
-}
-.formText button{
-  width: 20%;
-  font-size: 1.3em;
-  align-self: center;
-}
 .inputValue{
   color: white;
-  background: black;
+  background: #e72573;
   outline: none;
   border: none;
   border-radius: 10px;
   width: 100%;
-  height: 80%;
+  height: 100%;
   padding-left: 10px;
+  font-size: 1.2rem;
 }
 </style>
