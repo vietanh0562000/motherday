@@ -78,7 +78,6 @@ export default {
   mounted() {
     this.themeId = this.$route.params?.themeId ?? 1;
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
-    console.log(theme);
     this.styleProps = {
       backgroundImage: `url(${theme})`,
       backgroundSize: "100% 100%",
@@ -141,7 +140,6 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo-child");
-      console.log(div.style.width);
       return await htmlImage.toPng(div);
     },
     async nextScreen() {
@@ -184,9 +182,7 @@ export default {
 
     },
     changeInput(value){
-      // eslint-disable-next-line
       this.selectedId = value.id
-      console.log(value);
       this.inputValue=value;
       this.isEditing=true;
     }

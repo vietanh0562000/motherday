@@ -27,24 +27,15 @@ export default {
   }),
   methods: {
     dragMouseDown: function (event) {
-      // eslint-disable-next-line
       debugger
       if (this.isEditting) return;
-      //event.preventDefault();
-      // eslint-disable-next-line
-      // debugger
-      // get the mouse cursor position at startup:
       this.positions.clientX = event.clientX;
       this.positions.clientY = event.clientY;
       
-      // document.ontouchmove = this.elementDrag;
-      // document.ontouchend = this.closeDragElement;
       window.addEventListener("touchmove", this.elementDrag);
         window.addEventListener("touchend", this.closeDragElement);
     },
     elementDrag: function (event) {
-      //event.preventDefault();
-       
       this.positions.movementX = this.positions.clientX - event.touches[0].clientX;
       this.positions.movementY = this.positions.clientY - event.touches[0].clientY;
       this.positions.clientX = event.touches[0].clientX;
@@ -59,8 +50,6 @@ export default {
         this.$refs.draggableContainer.offsetLeft -
         this.positions.movementX +
         "px";
-        // eslint-disable-next-line
-      // debugger
     },
     closeDragElement() {
       window.removeEventListener("touchmove", this.elementDrag);
@@ -79,7 +68,6 @@ export default {
       }
     },
     editText(){
-      console.log(1);
       this.$emit('changeInput', {'val': this.inputVal, 'id': this.idText});
     }
   },
