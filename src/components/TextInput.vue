@@ -27,7 +27,6 @@ export default {
   }),
   methods: {
     dragMouseDown: function (event) {
-      debugger
       if (this.isEditting) return;
       this.positions.clientX = event.clientX;
       this.positions.clientY = event.clientY;
