@@ -45,7 +45,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5% auto 0px auto;
+  margin: auto;
 }
 
 </style>
