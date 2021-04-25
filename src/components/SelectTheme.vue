@@ -32,9 +32,17 @@ export default {
 </script>
 
 <style scoped>
-.second-screen{
-  height: 100%;
-  width: 100%;
+@media only screen and (max-width: 800px) {
+  .second-screen{
+    height: 100%;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 801px) {
+  .second-screen {
+    height: 100%;
+    width: 400px;
+  }
 }
 .second-screen h1 {
   font-size: 1em;
