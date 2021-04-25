@@ -21,7 +21,15 @@
     </div>
     <div id="photo">
       <div id='photo-child'>
-         <div id="capture-img" class="img-cntnr" :style="styleProps">
+        <div id="capture-img" class="img-cntnr" :style="styleProps">
+        <component
+            v-for="item in listSticker"
+            :is="item.type"
+            v-bind:key="'sticker' + item.id"
+            >
+            <img :src="item.img" width="100" height="100" class="image"/>
+        </component>
+
         <component
             v-for="item in listTextInput"
             :is="item.type"
@@ -31,14 +39,6 @@
             :font="fontStyle"
             :idText="item.id"
             ></component>
-
-        <component
-            v-for="item in listSticker"
-            :is="item.type"
-            v-bind:key="'sticker' + item.id"
-            >
-            <img :src="item.img" width="100" height="100" class="image"/>
-        </component>
       </div>
       </div>
     </div>
@@ -49,11 +49,11 @@
       </div>
       <div class="mediumBtn">
         <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
-        <a v-else @click="addText" >click to enter text</a>
+        <a v-else @click="addText" >Click to enter text</a>
       </div>
     </div>
     <div class="btn">
-      <a @click="nextScreen">click to complete</a>
+      <a @click="nextScreen">Click to complete</a>
     </div>
   </div>
 </template>
