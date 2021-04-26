@@ -2,6 +2,7 @@
   <div class="thankScreen">
     <span>Thank You!</span>
       <b-icon icon="download"  class="btnDownload" @click="exportPhoto" ></b-icon>
+      <a download="test.png" :href="$route.params.completeCard">test</a>
       <b-icon-house-door-fill @click="startMake" class="btnDownload" id="Home"/>
   </div>
 </template>
@@ -16,7 +17,8 @@ export default {
         exportPhoto() {
           var download = document.createElement("a");
           download.href = this.$route.params.completeCard;
-          download.download = "happy_mother.jpg";
+          // eslint-disable-next-line
+          debugger
           download.click();
         }
     }
