@@ -1,6 +1,8 @@
 <template>
   <div class="navbar">
-    <img src='../../public/assets/logo.jpg' alt="logo"/>
+    <router-link :to="'/'">
+      <img src='../../public/assets/logo.jpg' alt="logo"/>
+    </router-link>
   </div>
 </template>
 <script>

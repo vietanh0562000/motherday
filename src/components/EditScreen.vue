@@ -140,7 +140,7 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo-child");
-      return await htmlImage.toPng(div);
+      return await htmlImage.toJpeg(div);
     },
     async nextScreen() {
       this.isLoading = true;
