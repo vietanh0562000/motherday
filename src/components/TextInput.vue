@@ -62,7 +62,7 @@ export default {
       ];
       this.font = fonts[id];
       this.getElementById("textValue").styleProps = {
-        fontSize: "52px",
+        fontSize: "60px",
         fontFamily: this.font
       }
     },
