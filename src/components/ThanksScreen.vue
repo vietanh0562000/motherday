@@ -30,7 +30,7 @@ export default {
         exportPhoto() {
           var download = document.createElement("a");
           download.href = this.$route.params.completeCard;
-          download.download = "happy_mother.png";
+          download.download = "happy_mother.jpg";
           download.click();
         }
     }
