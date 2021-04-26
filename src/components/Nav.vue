@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <router-link :to="'/'">
+    <router-link :to="'/'" class="router">
       <img src='../../public/assets/logo.jpg' alt="logo"/>
     </router-link>
   </div>
@@ -22,5 +22,9 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     object-fit: contain;
+  }
+  .router{
+    width: 100%;
+    height: 100%;
   }
 </style>

@@ -9,10 +9,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
 Vue.config.productionTip = false
-
-Vue.use(Vue2TouchEvents)
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons)
+Vue.use(Vue2TouchEvents)
+
 Vue.component('drr', drr)
 new Vue({
   router,

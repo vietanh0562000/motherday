@@ -191,13 +191,13 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 450px) {
   .edit-screen{
     width: 100%;
     height: 100%;
   }
 }
-@media only screen and (min-width: 801px) {
+@media only screen and (min-width: 451px) {
   .edit-screen {
     width: 400px;
     height: 100%;
