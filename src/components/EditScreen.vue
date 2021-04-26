@@ -283,6 +283,7 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 2% auto 0px auto;
+  padding: 0px;
 }
 .inputValue{
   color: white;

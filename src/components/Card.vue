@@ -14,7 +14,6 @@ export default {
 
 <style scoped>
 .card{
-  padding-top: 20px;
   margin: 0px auto auto;
   width: 100%;
   height: 100%;

@@ -12,7 +12,6 @@ export default {
 </script>
 <style scoped>
   .navbar{
-    margin-top: 2%;
     width: 100%;
     height: 100%;
   }
@@ -21,7 +20,7 @@ export default {
     height: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    object-fit: contain;
+    object-fit: cover;
   }
   .router{
     width: 100%;
