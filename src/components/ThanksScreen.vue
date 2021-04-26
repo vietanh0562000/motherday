@@ -42,6 +42,6 @@ export default {
 }
 
 #Home{
-  height: 15%;
+  height: 8%;
 }
 </style>
