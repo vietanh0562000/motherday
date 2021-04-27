@@ -1,55 +1,80 @@
 <template>
   <div class="edit-screen">
-    <loading :active.sync="isLoading"
-       :can-cancel="true"
-       :is-full-page="fullPage"></loading>
+    <loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :is-full-page="fullPage"
+    ></loading>
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
-      <div class="circleImg" style="background-image: url(assets/e-stickers01.png);" @click="addSticker('01')">
-      </div>
-      <div class="circleImg" style="background-image: url(assets/e-stickers02.png);" @click="addSticker('02')">
-      </div>
-      <div class="circleImg" style="background-image: url(assets/e-stickers04.png);" @click="addSticker('04')">
-      </div>
-      <div class="circleImg" style="background-image: url(assets/e-stickers06.png);" @click="addSticker('06')">
-      </div>
-      <div class="circleImg" style="background-image: url(assets/e-stickers07.png);" @click="addSticker('07')">
-      </div>
+      <div
+        class="circleImg"
+        style="background-image: url(assets/e-stickers01.png)"
+        @click="addSticker('01')"
+      ></div>
+      <div
+        class="circleImg"
+        style="background-image: url(assets/e-stickers02.png)"
+        @click="addSticker('02')"
+      ></div>
+      <div
+        class="circleImg"
+        style="background-image: url(assets/e-stickers04.png)"
+        @click="addSticker('04')"
+      ></div>
+      <div
+        class="circleImg"
+        style="background-image: url(assets/e-stickers06.png)"
+        @click="addSticker('06')"
+      ></div>
+      <div
+        class="circleImg"
+        style="background-image: url(assets/e-stickers07.png)"
+        @click="addSticker('07')"
+      ></div>
       <br />
-
     </div>
     <div id="photo">
-      <div id='photo-child'>
+      <div id="photo-child">
         <div id="capture-img" class="img-cntnr" :style="styleProps">
-        <component
+          <component
             v-for="item in listSticker"
             :is="item.type"
             v-bind:key="'sticker' + item.id"
-            >
-            <img :src="item.img" width="100" height="100" class="image"/>
-        </component>
+          >
+            <img :src="item.img" width="100" height="100" class="image" />
+          </component>
 
-        <component
+          <component
             v-for="item in listTextInput"
             :is="item.type"
             v-bind:key="item.id"
-            @changeInput = "changeInput"
+            @changeInput="changeInput"
             :inputVal="item.inputValue"
             :font="fontStyle"
             :idText="item.id"
-            ></component>
-      </div>
+          ></component>
+        </div>
       </div>
     </div>
 
     <div class="btn">
-      <div class="smallBtn" >
-        <a id='changeFont' @click="changeFont" :style="fontStyle">{{fontSample}}</a>
+      <div class="smallBtn">
+        <a id="changeFont" @click="changeFont" :style="fontStyle">{{
+          fontSample
+        }}</a>
       </div>
       <div class="mediumBtn">
-        <input id='inputValue' v-if="isEditing" v-model="listTextInput[selectedId].inputValue" class="inputValue" @keyup.enter="isEditing = false" :style="fontStyle"  />
-        <a v-else @click="addText" >Click to enter text</a>
+        <input
+          id="inputValue"
+          v-if="isEditing"
+          v-model="listTextInput[selectedId].inputValue"
+          class="inputValue"
+          @keyup.enter="isEditing = false"
+          :style="fontStyle"
+        />
+        <a v-else @click="addText">Click to enter text</a>
       </div>
     </div>
     <div class="btn">
@@ -59,22 +84,20 @@
 </template>
 
 <script>
-import * as htmlImage from 'html-to-image';
+import * as htmlImage from "dom-to-image-more";
 // Import component
-import Loading from 'vue-loading-overlay';
+import Loading from "vue-loading-overlay";
 // Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.css';
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   name: "edit-screen",
   components: {
-    'text-input': () => import('./TextInput'),
-    'sticker': () => import('./Sticker'),
-    Loading
+    "text-input": () => import("./TextInput"),
+    sticker: () => import("./Sticker"),
+    Loading,
   },
-  beforeUpdate() {
-
-  },
+  beforeUpdate() {},
   mounted() {
     this.themeId = this.$route.params?.themeId ?? 1;
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
@@ -85,7 +108,7 @@ export default {
       height: "100%",
       margin: "auto",
       borderRadius: "5%",
-      position: "relative"
+      position: "relative",
     };
   },
   data: () => ({
@@ -114,11 +137,11 @@ export default {
     listTextInput: [],
     lastTextInputId: 0,
     fontStyle: {
-      fontFamily: 'Dancing Script',
-      fontSize: '1.2rem'
+      fontFamily: "Dancing Script",
+      fontSize: "1.2rem",
     },
     fontId: 0,
-    fontSample: 'Aa',
+    fontSample: "Aa",
     isEditing: false,
     inputValue: [],
     choosenInput: 0,
@@ -134,7 +157,7 @@ export default {
       const item = {
         id: this.lastStickerId++,
         type: "sticker",
-        img: require(`../../public/assets/e-stickers${stickerId}.png`)
+        img: require(`../../public/assets/e-stickers${stickerId}.png`),
       };
       this.listSticker.push(item);
     },
@@ -146,53 +169,55 @@ export default {
       this.isLoading = true;
       const completeCard = await this.exportPhoto();
       this.isLoading = false;
-      await this.$router.push({name: "tks-screen", params: {completeCard: completeCard}});
+      await this.$router.push({
+        name: "tks-screen",
+        params: { completeCard: completeCard },
+      });
     },
     addText() {
       const item = {
         id: this.lastTextInputId++,
         type: "text-input",
-        inputValue: 'Your text'
+        inputValue: "Your text",
       };
       this.listTextInput.push(item);
     },
-    prevStep () {
-      this.step -= 1
+    prevStep() {
+      this.step -= 1;
     },
-    toSelectTheme () {
-      this.$router.push('/select-theme')
+    toSelectTheme() {
+      this.$router.push("/select-theme");
     },
-    changeFont(){
+    changeFont() {
       const fonts = [
-        'Josefin Sans',
-        'Fantasy',
-        'Dancing Script',
-        'ZCOOL XiaoWei',
-      ]
+        "Josefin Sans",
+        "Fantasy",
+        "Dancing Script",
+        "ZCOOL XiaoWei",
+      ];
       this.fontStyle = {
-        fontFamily : fonts[(this.fontId+1)%fonts.length],
-        fontSize: '1.2rem',
-      }
+        fontFamily: fonts[(this.fontId + 1) % fonts.length],
+        fontSize: "1.2rem",
+      };
       this.fontId = (this.fontId + 1) % fonts.length;
-      if (this.fontId == fonts.length-1){
-        this.fontSample='字';
-      }else{
-        this.fontSample='Aa';
+      if (this.fontId == fonts.length - 1) {
+        this.fontSample = "字";
+      } else {
+        this.fontSample = "Aa";
       }
-
     },
-    changeInput(value){
-      this.selectedId = value.id
-      this.inputValue=value;
-      this.isEditing=true;
-    }
+    changeInput(value) {
+      this.selectedId = value.id;
+      this.inputValue = value;
+      this.isEditing = true;
+    },
   },
 };
 </script>
 
 <style scoped>
 @media only screen and (max-width: 450px) {
-  .edit-screen{
+  .edit-screen {
     width: 100%;
     height: 100%;
   }
@@ -203,11 +228,11 @@ export default {
     height: 100%;
   }
 }
-.action{
+.action {
   font-size: 1em;
 }
 
-.circleImg{
+.circleImg {
   width: 20%;
   height: 60%;
   background-repeat: no-repeat;
@@ -235,15 +260,15 @@ export default {
   bottom: 0;
   margin: auto;
   cursor: grab;
-} 
-.sticker{
+}
+.sticker {
   display: flex;
   height: 20%;
   width: 100%;
   margin-top: 5%;
   padding: 5%;
 }
-.smallBtn{
+.smallBtn {
   background: #e72573;
   border-right: 1px solid white;
   width: 20%;
@@ -256,7 +281,7 @@ export default {
   justify-content: center;
   margin-left: 2%;
 }
-.mediumBtn{
+.mediumBtn {
   background: #e72573;
   border: none;
   width: 80%;
@@ -270,7 +295,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.btn{
+.btn {
   background: #e72573;
   height: 6%;
   width: 75%;
@@ -285,7 +310,7 @@ export default {
   margin: 2% auto 0px auto;
   padding: 0px;
 }
-.inputValue{
+.inputValue {
   color: white;
   background: #e72573;
   outline: none;
