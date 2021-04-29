@@ -256,6 +256,7 @@ export default {
 #photo-child {
   width: 100%;
   height: 100%;
+  padding-bottom: 30px;
 }
 #capture-img {
   overflow: hidden;
