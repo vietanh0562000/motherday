@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import * as htmlImage from "dom-to-image-more";
+import html2canvas from "html2canvas";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -163,7 +163,15 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo-child");
-      return await htmlImage.toJpeg(div);
+      // return await htmlImage.toJpeg(div);
+      return html2canvas(div).then(function (canvas) {
+        return canvas.toDataURL("image/png");
+        // var a = document.createElement("a"); //Create <a>
+        // a.href = canvas.toDataURL("image/png");
+        // a.download = "hello.png"; //File name Here
+        // a.click(); //Downloaded file
+        // document.body.appendChild(canvas);
+      });
     },
     async nextScreen() {
       this.isLoading = true;

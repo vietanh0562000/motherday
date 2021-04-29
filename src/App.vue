@@ -41,7 +41,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-rows: 25% 75%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 * {
   box-sizing: border-box;
