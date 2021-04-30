@@ -4,7 +4,7 @@
       :active.sync="isLoading"
       :can-cancel="true"
       :is-full-page="fullPage"
-    ></loading>
+    />
     <div class="action">Step 2: Choose Your e-Sticker/s</div>
     <!-- sticker -->
     <div class="sticker">
@@ -103,6 +103,7 @@ export default {
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
     this.styleProps = {
       backgroundImage: `url(${theme})`,
+      backgroundOrigin: "content-box",
       backgroundSize: "100% 100%",
       width: "100%",
       height: "100%",
@@ -162,25 +163,22 @@ export default {
       this.listSticker.push(item);
     },
     async exportPhoto() {
-      let div = document.getElementById("photo-child");
-      // return await htmlImage.toJpeg(div);
-      return html2canvas(div).then(function (canvas) {
-        return canvas.toDataURL("image/png");
-        // var a = document.createElement("a"); //Create <a>
-        // a.href = canvas.toDataURL("image/png");
-        // a.download = "hello.png"; //File name Here
-        // a.click(); //Downloaded file
-        // document.body.appendChild(canvas);
+      let div = document.getElementById("capture-img");
+      html2canvas(div).then(function (canvas) {
+        var a = document.createElement("a");
+        a.href = canvas.toDataURL("image/png");
+        a.download = "hello.png";
+        a.click();
       });
     },
     async nextScreen() {
-      this.isLoading = true;
-      const completeCard = await this.exportPhoto();
-      this.isLoading = false;
-      await this.$router.push({
-        name: "tks-screen",
-        params: { completeCard: completeCard },
-      });
+      // this.isLoading = true;
+      await this.exportPhoto();
+      // this.isLoading = false;
+      // await this.$router.push({
+      //   name: "tks-screen",
+      //   params: { completeCard: completeCard },
+      // });
     },
     addText() {
       const item = {
@@ -230,22 +228,25 @@ export default {
     height: 100%;
   }
 }
+
 @media only screen and (min-width: 451px) {
   .edit-screen {
     width: 400px;
     height: 100%;
   }
 }
+
 .action {
+  margin: 20px 0;
   font-size: 1em;
 }
 
 .circleImg {
   width: 20%;
   height: 60%;
-  background-repeat: no-repeat;
-  background-position: center;
   background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 #photo {
   overflow: hidden;
@@ -256,6 +257,7 @@ export default {
 #photo-child {
   width: 100%;
   height: 100%;
+  min-height: 500px;
   padding-bottom: 30px;
 }
 #capture-img {
