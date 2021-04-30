@@ -84,7 +84,8 @@
 </template>
 
 <script>
-import html2canvas from "html2canvas";
+import * as htmlToImage from "html-to-image";
+import { jsPDF } from "jspdf";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -99,7 +100,7 @@ export default {
   },
   beforeUpdate() {},
   mounted() {
-    this.themeId = this.$route.params?.themeId ?? 1;
+    this.themeId = this.$route.query?.themeId ?? 1;
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
     this.styleProps = {
       backgroundImage: `url(${theme})`,
@@ -163,19 +164,30 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo-child");
-      // return await htmlImage.toJpeg(div);
-      return html2canvas(div).then(function (canvas) {
-        return canvas.toDataURL("image/png");
-        // var a = document.createElement("a"); //Create <a>
-        // a.href = canvas.toDataURL("image/png");
-        // a.download = "hello.png"; //File name Here
-        // a.click(); //Downloaded file
-        // document.body.appendChild(canvas);
-      });
+      if (this.getMobileOperatingSystem() == "iOS") {
+        var doc = new jsPDF();
+        var elementHandler = {
+          "#photo-child": function () {
+            return true;
+          },
+        };
+
+        var source = div.innerHTML;
+
+        doc.fromHTML(source, 15, 15, {
+          width: 180,
+          elementHandlers: elementHandler,
+        });
+
+        return doc.output("dataurlnewwindow");
+      } else {
+        return await htmlToImage.toJpeg(div);
+      }
     },
     async nextScreen() {
       this.isLoading = true;
       const completeCard = await this.exportPhoto();
+      console.log(completeCard);
       this.isLoading = false;
       await this.$router.push({
         name: "tks-screen",
@@ -218,6 +230,25 @@ export default {
       this.selectedId = value.id;
       this.inputValue = value;
       this.isEditing = true;
+    },
+    getMobileOperatingSystem() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      // Windows Phone must come first because its UA also contains "Android"
+      if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+      }
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      }
+
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+      }
+
+      return "unknown";
     },
   },
 };
