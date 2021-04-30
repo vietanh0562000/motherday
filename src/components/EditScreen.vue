@@ -85,7 +85,7 @@
 
 <script>
 import * as htmlToImage from "html-to-image";
-import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -164,30 +164,15 @@ export default {
     },
     async exportPhoto() {
       let div = document.getElementById("photo-child");
-      if (this.getMobileOperatingSystem() == "iOS") {
-        var doc = new jsPDF();
-        var elementHandler = {
-          "#photo-child": function () {
-            return true;
-          },
-        };
-
-        var source = div.innerHTML;
-
-        doc.fromHTML(source, 15, 15, {
-          width: 180,
-          elementHandlers: elementHandler,
-        });
-
-        return doc.output("dataurlnewwindow");
+      if (this.getMobileOperatingSystem() === "iOS") {
+        return (await html2canvas(div)).toDataURL("image/png");
       } else {
-        return await htmlToImage.toJpeg(div);
+        return await htmlToImage.toPng(div);
       }
     },
     async nextScreen() {
       this.isLoading = true;
       const completeCard = await this.exportPhoto();
-      console.log(completeCard);
       this.isLoading = false;
       await this.$router.push({
         name: "tks-screen",
@@ -281,7 +266,7 @@ export default {
 #photo {
   overflow: hidden;
   width: 70%;
-  height: 50%;
+  height: 70%;
   margin: auto;
 }
 #photo-child {
