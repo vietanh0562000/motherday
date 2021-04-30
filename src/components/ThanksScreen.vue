@@ -2,6 +2,7 @@
   <div class="thankScreen">
     <span>Thank You!</span>
       <b-icon icon="download"  class="btnDownload" @click="exportPhoto" ></b-icon>
+      <p class="center">For android only</p>
       <b-icon-house-door-fill @click="startMake" class="btnDownload" id="Home"/>
   </div>
 </template>
@@ -40,7 +41,9 @@ export default {
   height: 10%;
   color: #e72573;
 }
-
+.center{
+  text-align: center;
+}
 #Home{
   height: 8%;
 }
