@@ -99,7 +99,7 @@ export default {
   },
   beforeUpdate() {},
   mounted() {
-    this.themeId = this.$route.params?.themeId ?? 1;
+    this.themeId = this.$route.query?.themeId ?? 1;
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
     this.styleProps = {
       backgroundImage: `url(${theme})`,
