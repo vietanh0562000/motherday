@@ -37,7 +37,12 @@
     </div>
     <div id="photo">
       <div id="photo-child">
-        <div id="capture-img" class="img-cntnr" :style="styleProps">
+        <div
+          id="capture-img"
+          ref="captureImg"
+          class="img-cntnr"
+          :style="styleProps"
+        >
           <component
             v-for="item in listSticker"
             :is="item.type"
@@ -79,6 +84,7 @@
     </div>
     <div class="btn">
       <a @click="nextScreen">Click to complete</a>
+      <img :src="src" alt="" />
     </div>
   </div>
 </template>
@@ -113,6 +119,7 @@ export default {
     };
   },
   data: () => ({
+    src: "",
     moveable: {
       draggable: true,
       throttleDrag: 1,
@@ -165,7 +172,20 @@ export default {
     async exportPhoto() {
       let div = document.getElementById("photo-child");
       if (this.getMobileOperatingSystem() === "iOS") {
-        return (await html2canvas(div)).toDataURL("image/png");
+        return (
+          await html2canvas(this.$refs.captureImg, {
+            width:
+              div.clientWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth,
+            height:
+              div.innerHeight ||
+              document.documentElement.clientHeight ||
+              document.body.clientHeight,
+          })
+        ).toDataURL("image/jpge");
+      } else if (this.getMobileOperatingSystem() === "Android") {
+        return await htmlToImage.toJpeg(div);
       } else {
         return await htmlToImage.toPng(div);
       }
