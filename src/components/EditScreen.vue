@@ -160,11 +160,15 @@ export default {
       let div = document.getElementById("photo-child");
       if (this.getMobileOperatingSystem() === "iOS") {
         return (
-          await html2canvas(this.$refs.captureImg, {
-            y: div.clientHeight - 170,
-            width: div.clientWidth,
-            height: div.clientHeight + 30,
-          })
+          await html2canvas(
+            this.$refs.captureImg,
+            {
+              y: div.clientHeight - 170,
+              width: div.clientWidth,
+              height: div.clientHeight + 30,
+            },
+            0.9
+          )
         ).toDataURL("image/png");
       } else if (this.getMobileOperatingSystem() === "Android") {
         return await htmlToImage.toJpeg(div);
@@ -193,7 +197,21 @@ export default {
         type: "text-input",
         inputValue: "Your text",
       };
-      this.listTextInput.push(item);
+
+      if (this.listTextInput.length === 0) {
+        this.listTextInput.push({
+          id: 0,
+          type: "text-input",
+          inputValue: "",
+        });
+        this.listTextInput.push({
+          id: 1,
+          type: "text-input",
+          inputValue: "Your text",
+        });
+      } else {
+        this.listTextInput.push(item);
+      }
     },
     prevStep() {
       this.step -= 1;
