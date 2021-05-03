@@ -1,10 +1,5 @@
 <template>
-  <drr
-    :x="150"
-    :y="150"
-    :w="100"
-    :h="100"
-  >
+  <drr :x="150" :y="150" :w="100" :h="100">
     <slot />
   </drr>
 </template>
@@ -14,8 +9,7 @@
 
 export default {
   name: "app",
-  components: {
-  },
+  components: {},
   data: () => ({
     moveable: {
       draggable: true,
@@ -62,6 +56,8 @@ export default {
   },
   watch: {
     currentState(newState) {
+      console.log("newState", newState);
+
       this.clearAllStates();
       this.moveable[newState] = true;
     },

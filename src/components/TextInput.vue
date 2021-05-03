@@ -1,22 +1,19 @@
 <template>
-    <div ref="draggableContainer" class="draggable-container"  v-touch="editText">
-      <div class="text-input draggable-header" @touchstart="dragMouseDown">
-        <drr :x="100" :y="100" :w="100" :h="100">
-          <div id="textValue" class="textValue" :style="font">{{ inputVal }}</div>
-        </drr>
-      </div>
+  <div ref="draggableContainer" class="draggable-container" v-touch="editText">
+    <div class="text-input draggable-header" @touchstart="dragMouseDown">
+      <drr :x="100" :y="100" :w="100" :h="100">
+        <div id="textValue" class="textValue" :style="font">
+          {{ inputVal }}
+        </div>
+      </drr>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "text-input",
-  props: [
-      "text",
-      "inputVal",
-      "font",
-      "idText",
-  ],
+  props: ["text", "inputVal", "font", "idText"],
   data: () => ({
     positions: {
       clientX: undefined,
@@ -30,16 +27,18 @@ export default {
       if (this.isEditting) return;
       this.positions.clientX = event.clientX;
       this.positions.clientY = event.clientY;
-      
+
       window.addEventListener("touchmove", this.elementDrag);
-        window.addEventListener("touchend", this.closeDragElement);
+      window.addEventListener("touchend", this.closeDragElement);
     },
     elementDrag: function (event) {
-      this.positions.movementX = this.positions.clientX - event.touches[0].clientX;
-      this.positions.movementY = this.positions.clientY - event.touches[0].clientY;
+      this.positions.movementX =
+        this.positions.clientX - event.touches[0].clientX;
+      this.positions.movementY =
+        this.positions.clientY - event.touches[0].clientY;
       this.positions.clientX = event.touches[0].clientX;
       this.positions.clientY = event.touches[0].clientY;
-      
+
       // set the element's new position:
       this.$refs.draggableContainer.style.top =
         this.$refs.draggableContainer.offsetTop -
@@ -54,21 +53,17 @@ export default {
       window.removeEventListener("touchmove", this.elementDrag);
       window.removeEventListener("touchend", this.closeDragElement);
     },
-    changeFont(id){
-      const fonts =[
-        'Lobster',
-        'Crimson Pro',
-        'ZCOOL XiaoWei'
-      ];
+    changeFont(id) {
+      const fonts = ["Lobster", "Crimson Pro", "ZCOOL XiaoWei"];
       this.font = fonts[id];
       this.getElementById("textValue").styleProps = {
         fontSize: "60px",
-        fontFamily: this.font
-      }
+        fontFamily: this.font,
+      };
     },
-    editText(){
-      this.$emit('changeInput', {'val': this.inputVal, 'id': this.idText});
-    }
+    editText() {
+      this.$emit("changeInput", { val: this.inputVal, id: this.idText });
+    },
   },
 };
 </script>
@@ -90,8 +85,8 @@ export default {
 /*  font-size: 50px;*/
 /*  font-family: Magneto;*/
 /*}*/
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap");
 </style>

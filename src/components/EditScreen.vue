@@ -55,7 +55,7 @@
             :inputVal="item.inputValue"
             :font="fontStyle"
             :idText="item.id"
-          ></component>
+          />
         </div>
       </div>
     </div>
@@ -68,12 +68,14 @@
       </div>
       <div class="mediumBtn">
         <input
+          ref="appInput"
           id="inputValue"
           v-if="isEditing"
           v-model="listTextInput[selectedId].inputValue"
           class="inputValue"
-          @keyup.enter="isEditing = false"
           :style="fontStyle"
+          @blur="isEditing = false"
+          @keyup.enter="isEditing = false"
         />
         <a v-else @click="addText">Click to enter text</a>
       </div>
@@ -87,9 +89,7 @@
 <script>
 import * as htmlToImage from "html-to-image";
 import html2canvas from "html2canvas";
-// Import component
 import Loading from "vue-loading-overlay";
-// Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
@@ -161,11 +161,11 @@ export default {
       if (this.getMobileOperatingSystem() === "iOS") {
         return (
           await html2canvas(this.$refs.captureImg, {
-            y: div.clientHeight - 150,
+            y: div.clientHeight - 170,
             width: div.clientWidth,
-            height: div.clientHeight,
+            height: div.clientHeight + 30,
           })
-        ).toDataURL("image/jpge");
+        ).toDataURL("image/png");
       } else if (this.getMobileOperatingSystem() === "Android") {
         return await htmlToImage.toJpeg(div);
       } else {
@@ -180,6 +180,12 @@ export default {
         name: "tks-screen",
         params: { completeCard: completeCard },
       });
+
+      // const completeCard = await this.exportPhoto();
+      // var download = document.createElement("a");
+      // download.href = completeCard;
+      // download.download = "happy_mother.png";
+      // download.click();
     },
     addText() {
       const item = {
@@ -217,6 +223,14 @@ export default {
       this.selectedId = value.id;
       this.inputValue = value;
       this.isEditing = true;
+
+      try {
+        this.$refs.appInput.focus();
+      } catch (error) {
+        this.$nextTick(() => {
+          this.$refs?.appInput?.focus();
+        });
+      }
     },
     getMobileOperatingSystem() {
       var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -335,14 +349,18 @@ export default {
   margin: 2% auto 0px auto;
   padding: 0px;
 }
+@media (max-width: 768px) {
+  .btn {
+    height: 10%;
+  }
+}
+
 .inputValue {
   color: white;
   background: #e72573;
   outline: none;
   border: none;
   border-radius: 10px;
-  width: 100%;
-  height: 100%;
   padding-left: 10px;
   font-size: 1.2rem;
 }
