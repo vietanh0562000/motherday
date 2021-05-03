@@ -64,6 +64,7 @@ export default {
 .circleImg {
   width: 40%;
   height: 25%;
+  background-origin: content-box;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -71,6 +72,7 @@ export default {
   padding: 10px;
   margin: 2%;
   border-radius: 10px;
+  cursor: pointer;
 }
 .second-screen img {
   width: 25%;

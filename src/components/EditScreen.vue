@@ -37,12 +37,8 @@
     </div>
     <div id="photo">
       <div id="photo-child">
-        <div
-          id="capture-img"
-          ref="captureImg"
-          class="img-cntnr"
-          :style="styleProps"
-        >
+        <div id="capture-img" ref="captureImg">
+          <img :src="src" alt="" />
           <component
             v-for="item in listSticker"
             :is="item.type"
@@ -84,7 +80,6 @@
     </div>
     <div class="btn">
       <a @click="nextScreen">Click to complete</a>
-      <img :src="src" alt="" />
     </div>
   </div>
 </template>
@@ -108,15 +103,7 @@ export default {
   mounted() {
     this.themeId = this.$route.query?.themeId ?? 1;
     const theme = require(`../../public/assets/e-template${this.themeId}.png`);
-    this.styleProps = {
-      backgroundImage: `url(${theme})`,
-      backgroundSize: "100% 100%",
-      width: "100%",
-      height: "100%",
-      margin: "auto",
-      borderRadius: "5%",
-      position: "relative",
-    };
+    this.src = theme;
   },
   data: () => ({
     src: "",
@@ -174,14 +161,9 @@ export default {
       if (this.getMobileOperatingSystem() === "iOS") {
         return (
           await html2canvas(this.$refs.captureImg, {
-            width:
-              div.clientWidth ||
-              document.documentElement.clientWidth ||
-              document.body.clientWidth,
-            height:
-              div.innerHeight ||
-              document.documentElement.clientHeight ||
-              document.body.clientHeight,
+            y: div.clientHeight - 150,
+            width: div.clientWidth,
+            height: div.clientHeight,
           })
         ).toDataURL("image/jpge");
       } else if (this.getMobileOperatingSystem() === "Android") {
@@ -272,8 +254,10 @@ export default {
     height: 100%;
   }
 }
+
 .action {
   font-size: 1em;
+  margin-top: 10px;
 }
 
 .circleImg {
@@ -283,28 +267,24 @@ export default {
   background-position: center;
   background-size: contain;
 }
+
 #photo {
-  overflow: hidden;
-  width: 70%;
-  height: 70%;
   margin: auto;
+  padding: 20px;
 }
+
 #photo-child {
   width: 100%;
   height: 100%;
-  padding-bottom: 30px;
 }
+
 #capture-img {
   overflow: hidden;
+  position: relative;
 }
-.img-cntnr img {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  cursor: grab;
+
+#photo-child img {
+  width: 100%;
 }
 .sticker {
   display: flex;

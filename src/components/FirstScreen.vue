@@ -1,8 +1,6 @@
 <template>
   <div class="first-screen">
-    <img
-      src="assets/welcome.png"
-    />
+    <img src="assets/welcome.png" />
     <div id="btn" @click="nextScreen">
       <span class="noselect">Customize</span>
       <div id="circle"></div>
@@ -25,6 +23,7 @@ export default {
 .first-screen {
   width: 100%;
   height: 100%;
+  max-width: 700px;
 }
 .first-screen img {
   object-fit: contain;
@@ -32,7 +31,6 @@ export default {
   border-radius: 5%;
   width: calc(68%);
   height: calc(68%);
-  /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
 }
 #btn {
   background: #e72573;
@@ -46,6 +44,6 @@ export default {
   align-items: center;
   justify-content: center;
   margin: auto;
+  cursor: pointer;
 }
-
 </style>
